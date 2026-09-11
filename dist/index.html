@@ -4859,14 +4859,20 @@ Like: www.facebook.com/ict-services
 		<script src="assets/js/custom/widgets.js"></script>
 		<!--end::Page Custom Javascript-->
 		<script>
-   		 // Haal de inhoud van de losse header op
-   			 fetch('hoofdmenu.html')
-    	    .then(response => response.text())
-        	.then(data => {
-            // Plak de inhoud in de placeholder div
-            document.getElementById('shared-header').innerHTML = data;
-        	})
-        	.catch(error => console.error('Fout bij het laden van de header:', error));
+			// Haal de inhoud van de losse header op
+			fetch('hoofdmenu.html')
+				.then(response => response.text())
+				.then(data => {
+					// Plak de inhoud in de placeholder div
+					document.getElementById('shared-header').innerHTML = data;
+
+					// CRUCIALE STAP: Re-initialiseer het Metronic menu component
+					// Dit activeert direct alle zwevende submenus en mobiele klapmenu's
+					if (typeof KTMenu !== 'undefined' && KTMenu.createInstances) {
+						KTMenu.createInstances();
+					}
+				})
+				.catch(error => console.error('Fout bij het laden van de header:', error));
 		</script>
 		<!--end::Javascript-->
 	</body>
